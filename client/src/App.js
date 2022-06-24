@@ -5,6 +5,7 @@ import Write from "./pages/write/Write";
 import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import PageNotFound from "./PageNotFound";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
@@ -25,9 +26,11 @@ function App() {
         <Route path="/post/:postId">
           <Single />
         </Route>
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   );
 }
 
 export default App;
+
