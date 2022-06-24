@@ -14,9 +14,9 @@ router.post("/", async (req, res) => {
 });
 
 //UPDATE POST
-router.put("/:id", async (req, res) => {
+router.put("/:title", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.title);
     if (post.username === req.body.username) {
       try {
         const updatedPost = await Post.findByIdAndUpdate(
@@ -39,9 +39,9 @@ router.put("/:id", async (req, res) => {
 });
 
 //DELETE POST
-router.delete("/:id", async (req, res) => {
+router.delete("/:title", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.title);
     if (post.username === req.body.username) {
       try {
         await post.delete();
@@ -58,9 +58,10 @@ router.delete("/:id", async (req, res) => {
 });
 
 //GET POST
-router.get("/:id", async (req, res) => {
+router.get("/:title", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    req.params.title = req.params.title.replaceAll("-", " ")
+    const post = await Post.findOne({ title: req.params.title.replaceAll("~", "-") });
     res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
